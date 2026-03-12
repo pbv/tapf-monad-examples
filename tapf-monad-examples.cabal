@@ -1,16 +1,16 @@
+cabal-version:       3.0
 name:                tapf-monad-examples
-version:             0.2.0.0
+version:             0.3.0.0
 synopsis:            Examples for programing with state, maybe and list monads
 homepage:            https://github.com/pbv/tapf-monad-examples.git
 license:             BSD3
 license-file:        LICENSE
 author:              Pedro Vasconcelos
-maintainer:          pbv@dcc.fc.up.pt
-copyright:           2017 Pedro Vasconcelos
+maintainer:          pbvascon@fc.up.pt
+copyright:           2026 Pedro Vasconcelos
 category:            Teaching
 build-type:          Simple
 extra-source-files:  README.md
-cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
