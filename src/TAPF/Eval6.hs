@@ -3,7 +3,7 @@
 -- more monad transformers
 --
 
-module Eval6 where
+module TAPF.Eval6 where
 
 import           Data.Map (Map)
 import qualified Data.Map as Map
@@ -111,7 +111,6 @@ evalS (While expr body) = do
   where
     loop 0 = return ()
     loop _ = do
-      tick
       evalS body
       val <- evalE expr
       loop val

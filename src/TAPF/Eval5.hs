@@ -2,8 +2,9 @@
 -- Evaluator, variation 5
 -- logging
 --
-module Eval5 where
+module TAPF.Eval5 where
 
+import Data.Monoid
 import Control.Monad.Writer
 
 data Expr = Const Int
@@ -13,7 +14,12 @@ data Expr = Const Int
           | Neg Expr
            deriving Show
 
-type Eval a = Writer String a
+
+type Eval a = Writer [String] a
+
+runEval :: Eval a -> (a, [String])
+runEval = runWriter
+
 
 eval :: Expr -> Eval Int
 eval (Const n) = return n
@@ -21,7 +27,7 @@ eval (Const n) = return n
 eval (Add e1 e2) = do
   v1 <- eval e1
   v2 <- eval e2
-  logger $ show v1 ++ "+" ++ show v2 ++ "=" ++ show (v1+v2) 
+  logger $ show v1 ++ "+" ++ show v2 ++ "=" ++ show (v1+v2)
   return (v1+v2)
 
 eval (Mul e1 e2) = do
@@ -29,20 +35,21 @@ eval (Mul e1 e2) = do
   v2 <- eval e2
   logger $ show v1 ++ "*" ++ show v2 ++ "=" ++ show (v1*v2)
   return (v1*v2)
-  
+
 eval (Div e1 e2) = do
   v1 <- eval e1
   v2 <- eval e2
   logger $ show v1 ++ "div" ++ show v2 ++ "=" ++ show (v1`div`v2)
   return (v1`div`v2)
-  
+
 eval (Neg e) = do
   v <- eval e
+  logger $ "negate " ++ show v ++ "=" ++ show (negate v)
   return (negate v)
 
 -- | log a single text line
 logger :: String -> Eval ()
-logger line = tell (line ++ "\n")
+logger line = tell [line]
 
 
 -- examples

@@ -17,7 +17,7 @@ module TAPF.Puzzle where
 
 import           Control.Monad
 import           Control.Monad.State
-import           Data.List ((\\), foldl')
+import           Data.List ((\\))
 import           Data.Map (Map)
 import qualified Data.Map as Map
 
@@ -45,7 +45,7 @@ solveNaive = do
 
 -- convert a list of digits to a number
 toNumber :: [Int] -> Int
-toNumber = foldl' (\x y -> x*10+y) 0
+toNumber = foldl (\x y -> x*10+y) 0
 
 ---
 --- | Solution 2
@@ -56,9 +56,8 @@ type Letter = Char
 type Digit = Int
 type Assign = Map Letter Digit
 
-
 -- | monad transformer for backtracking search
--- combinatio of state (letter assignments) and
+-- combination of state (letter assignments) and
 -- non-determinism (list of alternatives)
 --
 type Search a = StateT Assign [] a

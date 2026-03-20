@@ -11,12 +11,13 @@ greedy :: [Int] -> Int -> Maybe [Int]
 greedy coins amount
   | amount == 0 = return []
   | null coins' = fail "no solution"
-  | otherwise = do 
-    cs <- greedy coins' (amount-c) 
-    return (c:cs) 
-  where coins' = filter (<=amount) coins
-                -- all useable coins (less than-or-equal amount)                 
-        c = maximum coins' -- greedy choice
+  | otherwise = do
+      let c = maximum coins' -- greedy choice      
+      cs <- greedy coins' (amount-c) 
+      return (c:cs) 
+  where
+    coins' = filter (<=amount) coins
+             -- all useable coins (less than-or-equal amount)                 
                   
 -- Exaustive algorithm: enumerate all solutions
 -- repeats identical solutions (up-to ordering)
@@ -28,10 +29,11 @@ exaustive coins amount
   | amount == 0 = return []
   | null coins' = fail "no solution"
   | otherwise = do
-    c <- coins'
-    cs <- exaustive coins' (amount-c)
-    return (c:cs)
-  where coins' = filter (<=amount) coins  -- usable coins
+      c <- coins'
+      cs <- exaustive coins' (amount-c)
+      return (c:cs)
+  where
+    coins' = filter (<=amount) coins  -- usable coins
 
 
 -- sample list of Euro coins (in cents)

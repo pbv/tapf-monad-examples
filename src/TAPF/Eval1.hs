@@ -3,7 +3,7 @@
 -- Exceptions
 --
 
-module Eval1 where
+module TAPF.Eval1 where
 
 data Expr = Const Int
           | Add Expr Expr
@@ -36,12 +36,21 @@ eval (Div e1 e2)= do
   v1 <- eval e1
   v2 <- eval e2
   if v2 /= 0 then
-    return (v1 `div` v2)
+    if v1`mod`v2 == 0 then
+      return (v1 `div` v2)
+      else
+        throwError ("non-exact division: " ++ show (Div e1 e2))
     else
-    throwError ("division by zero: " ++ show (Div e1 e2)) 
+    throwError ("division by zero: " ++ show (Div e1 e2))
 
 throwError :: e -> Either e a
 throwError = Left
+
+
+process :: Expr -> Int
+process e = case eval e of
+    Left err -> 0
+    Right v ->  v
 
 
 -- examples

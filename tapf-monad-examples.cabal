@@ -3,7 +3,7 @@ name:                tapf-monad-examples
 version:             0.3.0.0
 synopsis:            Examples for programing with state, maybe and list monads
 homepage:            https://github.com/pbv/tapf-monad-examples.git
-license:             BSD3
+license:             MIT
 license-file:        LICENSE
 author:              Pedro Vasconcelos
 maintainer:          pbvascon@fc.up.pt
@@ -17,6 +17,12 @@ library
   exposed-modules:     TAPF.Labelling
                        TAPF.Coins
                        TAPF.Puzzle
+                       TAPF.Eval0
+                       TAPF.Eval1
+                       TAPF.Eval2
+                       TAPF.Eval3
+                       TAPF.Eval4
+                       TAPF.Eval5
   build-depends:       base >= 4.7 && < 5, containers, mtl
   default-language:    Haskell2010
 

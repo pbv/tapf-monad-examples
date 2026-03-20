@@ -25,31 +25,31 @@ label t = fst (labelAux t 0)
 labelAux ::  Tree a -> Int -> (Tree (a,Int), Int)
 labelAux Leaf c = (Leaf, c)
 labelAux (Node x left right) c0 =
-  let (left', c1) = labelAux left c0
-      (right', c2)= labelAux right c1
-      t = Node (x,c2) left' right'
-      c3 = 1 + c2 
+  let
+      t = Node (x,c0) left' right'
+      c1 = 1 + c0
+      (left', c2) = labelAux left c1
+      (right', c3)= labelAux right c2
   in (t, c3)
 
 
 
--- | second version using the state monad 
+-- | second version using the state monad
 label' :: Tree a -> Tree (a,Int)
 label' t = fst (runState (labelAux' t) 0)
 
--- recursive "worker"; 
+-- recursive "worker";
 -- counter "threading" is hidden in the monad
 labelAux' :: Tree a -> State Int (Tree (a,Int))
 labelAux' Leaf = return Leaf
 labelAux' (Node x left right) = do
   left' <- labelAux' left
-  right'<- labelAux' right
   c <- get  -- get current counter
   put (c+1) -- and increment it
+  right'<- labelAux' right
   return (Node (x,c) left' right')
 
 -- a sample tree
 example = (Node 'a'
            (Node 'b' Leaf Leaf)
             (Node 'c' Leaf Leaf))
-

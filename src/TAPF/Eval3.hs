@@ -2,7 +2,7 @@
 -- Evaluator, variation 3: state
 --
 
-module Eval3 where
+module TAPF.Eval3 where
 
 import           Data.Map (Map)
 import qualified Data.Map as Map
